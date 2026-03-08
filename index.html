@@ -41,7 +41,7 @@
     /* HERO */
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem;z-index:1;background:linear-gradient(170deg,#e8f4fb 0%,#f4ede0 45%,#ede0cc 100%);}
     .hero-inner{max-width:760px;}
-    .hero-cloud{display:inline-block;margin-bottom:2rem;animation:cloudBob 4s ease-in-out infinite;filter:drop-shadow(0 12px 28px rgba(139,99,67,.18));}
+    .hero-cloud{display:inline-block;margin-bottom:2rem;margin-top:2.5rem;animation:cloudBob 4s ease-in-out infinite;filter:drop-shadow(0 12px 28px rgba(139,99,67,.18));}
     @keyframes cloudBob{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-18px) rotate(2deg);}}
     h1{font-family:'Baloo 2',cursive;font-size:clamp(2.8rem,7vw,5rem);font-weight:800;line-height:1.1;color:var(--text);margin-bottom:1rem;}
     h1 .hl{color:var(--blue);}
@@ -76,7 +76,8 @@
     #page-about{background:var(--cream);}
     .about{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
     .about-art{position:relative;display:flex;justify-content:center;}
-    .floating-badge{position:absolute;background:var(--card);border:1.5px solid var(--beige-m);border-radius:16px;padding:.55rem 1rem;font-size:.8rem;font-weight:700;color:var(--brown);box-shadow:0 4px 16px rgba(139,99,67,.1);display:flex;align-items:center;gap:.45rem;}
+    .about-art svg{max-width:100%;height:auto;}
+    .floating-badge{position:absolute;background:var(--card);border:1.5px solid var(--beige-m);border-radius:16px;padding:.55rem 1rem;font-size:.8rem;font-weight:700;color:var(--brown);box-shadow:0 4px 16px rgba(139,99,67,.1);display:flex;align-items:center;gap:.45rem;max-width:180px;}
     .badge-1{top:16px;right:-10px;animation:floatBadge 3s ease-in-out infinite;}
     .badge-2{bottom:24px;left:-10px;animation:floatBadge 3s ease-in-out infinite 1.5s;}
     @keyframes floatBadge{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -202,6 +203,9 @@
       h2{font-size:1.6rem;}
       .about{grid-template-columns:1fr;gap:2rem;padding:3rem 1.2rem;}
       .about-art svg{width:200px;height:auto;}
+      .floating-badge{font-size:.7rem;padding:.35rem .7rem;max-width:150px;}
+      .badge-1{top:8px;right:0px;}
+      .badge-2{bottom:8px;left:0px;}
       .vibe-grid{grid-template-columns:1fr;}
       .vibe-section{padding:3rem 1.2rem;}
       .visit-card{grid-template-columns:1fr;gap:1.5rem;padding:1.8rem;}
