@@ -18,7 +18,7 @@
 
     .cursor{width:12px;height:12px;border-radius:50%;background:var(--blue);position:fixed;top:0;left:0;pointer-events:none;z-index:9999;}
     .cursor-trail{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--blue);position:fixed;top:0;left:0;pointer-events:none;z-index:9998;opacity:.45;}
-    .bg-clouds{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+    .bg-clouds{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;display:none;}
     .bg-cloud{position:absolute;opacity:.12;animation:driftCloud linear infinite;}
     @keyframes driftCloud{0%{transform:translateX(-250px);opacity:0;}5%{opacity:.12;}95%{opacity:.12;}100%{transform:translateX(110vw);opacity:0;}}
 
@@ -797,6 +797,7 @@
     document.querySelectorAll('nav ul a').forEach(a => a.classList.remove('active'));
     document.getElementById('page-'+name).classList.add('active');
     document.getElementById('nav-'+name).classList.add('active');
+    document.getElementById('bgClouds').style.display = name === 'merch' ? 'block' : 'none';
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
@@ -818,13 +819,20 @@
   // Drifting background clouds
   const bc = document.getElementById('bgClouds');
   const paths = [
+    // small fluffy
     "M0,20 Q15,5 30,15 Q40,5 55,12 Q65,5 80,15 Q90,8 100,18 Q85,30 65,28 Q50,35 30,28 Q15,35 0,28 Z",
-    "M0,18 Q12,4 25,14 Q35,4 48,11 Q58,4 70,14 Q58,26 40,24 Q25,30 10,24 Z",
-    "M0,15 Q18,2 35,12 Q48,2 62,10 Q75,2 90,12 Q75,24 55,22 Q38,28 20,22 Z",
+    // medium fluffy
+    "M5,28 Q0,28 0,22 Q0,16 8,14 Q8,8 16,7 Q20,1 30,2 Q38,1 42,7 Q48,2 58,4 Q70,5 70,14 Q78,14 80,20 Q84,22 84,28 Q84,35 74,36 Q58,38 40,36 Q20,38 5,28 Z",
+    // big puffy
+    "M8,38 Q0,36 0,28 Q0,20 10,18 Q10,10 20,8 Q24,1 36,2 Q44,0 50,8 Q56,0 68,2 Q82,4 82,16 Q92,18 94,26 Q98,30 96,38 Q92,46 78,47 Q60,50 40,47 Q18,50 8,38 Z",
+    // wide stretched fluffy
+    "M0,22 Q10,8 25,16 Q35,6 52,12 Q62,4 78,10 Q90,4 100,14 Q95,26 80,28 Q65,34 48,28 Q32,34 15,28 Q5,32 0,22 Z",
+    // extra big round
+    "M10,45 Q0,42 0,32 Q0,22 12,20 Q12,10 24,8 Q28,0 42,1 Q52,0 58,8 Q66,0 80,3 Q96,6 96,20 Q106,22 108,32 Q110,42 96,46 Q78,52 54,49 Q28,52 10,45 Z",
   ];
-  for(let i=0;i<7;i++){
+  for(let i=0;i<10;i++){
     const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    const w=120+Math.random()*160;
+    const w=100+Math.random()*200;
     svg.setAttribute('viewBox','0 0 100 36');
     svg.setAttribute('width',w);
     svg.setAttribute('height',w*.36);
@@ -833,9 +841,12 @@
     path.setAttribute('fill','#c8e0f0');
     svg.appendChild(path);
     bc.appendChild(svg);
-    const top=Math.random()*100;
-    const dur=18+Math.random()*22;
-    const delay=-(Math.random()*dur);
+    // spread vertically in equal bands so clouds don't bunch
+    const top = (i / 10) * 90 + Math.random() * 8;
+    // bigger clouds drift slower, smaller clouds faster
+    const dur = w < 150 ? 14+Math.random()*8 : w < 220 ? 22+Math.random()*10 : 32+Math.random()*12;
+    // spread start times evenly across the duration so no bunching on load
+    const delay = -(i / 10) * dur - Math.random() * 5;
     svg.classList.add('bg-cloud');
     svg.style.top=top+'vh';
     svg.style.animationDuration=dur+'s';
